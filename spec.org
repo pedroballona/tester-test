@@ -31,3 +31,35 @@
 | user    | user  | Y  | Django User Table | N    |
 | value   | float | Y  | N                 | N    |
 | auction | id    | Y  | Auction Table     | N    |
+** FrontEnd
+*** Structure
+**** /login/
+Name: Login
+Component: LoginComponent
+Description: Login into the appication
+**** /singup/
+Name: Sing Up
+Component: SingUpComponent
+Description: Register into the application and redirect to login
+**** /main/
+Name: Main Application View
+Component: MainComponent
+Description: Main view of the application
+***** Components
+****** HeaderComponent
+****** ContentComponent
+***** Childs
+****** /newauction/
+Name: New Auction View
+Component: NewAuctionComponent
+Description: Create autction (Only admin users)
+****** /auctions/
+Name: List Auctions
+Component: ListAuctionsComponent
+Description: List Auctions
+****** /auctions/:id
+Name: Detail of the auction
+Component: AuctionDetailComponent
+Description: List details of the auction and list all bids, allowing to create new auctions
+******* Components
+******** BidListComponent
