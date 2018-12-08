@@ -1,0 +1,33 @@
+ * Regal Auctions
+** Backend
+*** UserProfile
+**** Model
+***** Columns
+| Name     | Tipo    | PK | FK                | Null |
+|----------+---------+----+-------------------+------|
+| user     | string  | Y  | Django Table User |      |
+| name     | string  | N  | N                 | N    |
+| email    | string  | N  | N                 | N    |
+| cpf      | string  | N  | N                 | N    |
+| active   | boolean | N  | N                 | N    |
+| is_admin | boolean | N  | N                 | N    |
+*** Auction
+**** Model
+***** Columns
+| Name          | Tipo    | PK | FK                | Null |
+|---------------+---------+----+-------------------+------|
+| id            | id      | Y  | N                 | N    |
+| name          | string  | N  | N                 | N    |
+| initial_value | float   | N  | N                 | N    |
+| user          | user    | N  | Django User Table | N    |
+| is_used       | boolean | N  | N                 | N    |
+| opening_date  | date    | N  | N                 | N    |
+| ending_date   | date    | N  | N                 | Y    |
+*** Bid
+**** Model
+***** Columns
+| Name    | Tipo  | PK | FK                | Null |
+|---------+-------+----+-------------------+------|
+| user    | user  | Y  | Django User Table | N    |
+| value   | float | Y  | N                 | N    |
+| auction | id    | Y  | Auction Table     | N    |
