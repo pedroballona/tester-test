@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/login.service';
 
 @Component({
   selector: 'app-main',
@@ -8,9 +9,12 @@ import { RouterModule, Routes } from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
+    if(!this.loginService.isAuthenticated) {
+      this.router.navigate(['login'])
+    }
   }
 
 }

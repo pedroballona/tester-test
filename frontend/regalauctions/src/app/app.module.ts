@@ -13,6 +13,8 @@ import { DetailAuctionComponent } from './main/auctions/detail-auction/detail-au
 import { BidListComponent } from './main/auctions/bid-list/bid-list.component';
 import { SingUpComponent } from './sing-up/sing-up.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -46,7 +48,9 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: true})
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes, {enableTracing: true}),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
