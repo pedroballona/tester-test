@@ -76,10 +76,6 @@ export class DetailAuctionComponent implements OnInit {
   }
   
   get maxBid(): number {
-    if(this.bids.length == 0) {
-      return this.auction.initial_value;
-    }
-    else {
       let maxValue = 0;
       for (let index = 0; index < this.bids.length; index++) {
         if(this.bids[index].value > maxValue) {
@@ -87,7 +83,6 @@ export class DetailAuctionComponent implements OnInit {
         }        
       }
       return maxValue;
-    }
   }
 
 }
