@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
-from rest_framework import serializers
+from rest_framework import serializers, fields
 from .models import UserProfile, Auction, Bid
+import datetime
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,6 +29,25 @@ class AuctionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Auction
         fields = '__all__'
+        extra_kwargs = {
+            'password': {'read_only': True},
+            'opening_date': {'read_only': True},
+            'user': {'read_only': True}
+           }
+    
+    def create(self, validated_data):
+        user = self.context.get("request").user
+        profile = UserProfile.objects.filter(user_id=user.id)[0]
+        auction = Auction(
+            name = validated_data['name'],
+            initial_value = validated_data['initial_value'],
+            is_used = validated_data['is_used'],
+            user = profile,
+            opening_date = datetime.datetime.now().strftime('%Y-%m-%d')
+
+        )
+        auction.save()
+        return auction
 
 class BidSerializer(serializers.ModelSerializer):
     class Meta:

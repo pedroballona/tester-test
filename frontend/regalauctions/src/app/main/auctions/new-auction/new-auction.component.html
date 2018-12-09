@@ -1,3 +1,22 @@
-<p>
-  new-auction works!
-</p>
+<h3>Create an Auction</h3>
+<form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input formControlName="name" type="text" class="form-control" id="name" placeholder="Enter the Auction's Name"
+      required>
+  </div>
+  <div class="form-group">
+    <label for="value">Initial Value</label>
+    <input formControlName="initialValue" type="number" class="form-control" id="value" placeholder="Enter the Auction's Initial Value"
+      required>
+  </div>
+  <div class="form-group form-check">
+    <input formControlName="isUsed" class="form-check-input" type="checkbox" value="" id="used">
+    <label class="form-check-label" for="used">
+      Used Product
+    </label>
+  </div>
+  <div class="form-group">
+    <button type="submit" [disabled]="!regForm.valid" class="btn float-right login_btn">Sing Up</button>
+  </div>
+</form>

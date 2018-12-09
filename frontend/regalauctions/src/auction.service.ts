@@ -27,4 +27,24 @@ export class AuctionService {
       }
     });
   }
+
+  public createRecord(name: string, initialValue: number, isUsed: boolean) : Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      if(this.loginService.isAuthenticated) {
+        this.http.post("/backend/api/auctions/?format=json", {
+          name: name,
+          initial_value: initialValue,
+          is_used: isUsed
+        },
+        {
+          headers: {
+            'Authorization': `Token ${this.loginService.token}`
+          }
+        }).subscribe((_) => resolve(true), (_) => reject(false));
+      }
+      else {
+        this.router.navigate(["login"]);
+      }
+    });
+  }
 }
