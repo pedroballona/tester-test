@@ -15,20 +15,21 @@ import { SingUpComponent } from './sing-up/sing-up.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMaskModule } from 'ngx-mask'
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SingUpComponent },
-  { 
-    path: 'main', 
-    component: MainComponent, 
+  {
+    path: 'main',
+    component: MainComponent,
     children: [
       { path: 'newauction', component: NewAuctionComponent },
       { path: 'auctions', component: ListAuctionComponent },
       { path: 'auction/:id', component: DetailAuctionComponent },
-    ] 
+    ]
   },
-  { path: '', redirectTo: '/main', pathMatch: 'full'},
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -49,8 +50,9 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: true}),
-    ReactiveFormsModule
+    RouterModule.forRoot(appRoutes, { enableTracing: true }),
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
