@@ -50,6 +50,22 @@ class AuctionSerializer(serializers.ModelSerializer):
         return auction
 
 class BidSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(slug_field="name", read_only=True)
     class Meta:
         model = Bid
         fields = '__all__'
+        extra_kwargs = {
+            'user': {'read_only': True}
+           }
+
+    def create(self, validated_data):
+        user = self.context.get("request").user
+        profile = UserProfile.objects.filter(user_id=user.id)[0]
+        auction = validated_data['auction']
+        bid = Bid(
+            user = profile,
+            auction = auction,
+            value = validated_data['value']
+        )
+        bid.save()
+        return bid

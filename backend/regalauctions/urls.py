@@ -21,9 +21,9 @@ from .api.views import UserProfileViewSet, AuctionViewSet, BidViewSet
 from rest_framework.authtoken import views
 
 router = routers.DefaultRouter()
-router.register(r'users', UserProfileViewSet)
+router.register(r'users', UserProfileViewSet, base_name="user")
 router.register(r'auctions', AuctionViewSet)
-router.register(r'bids', BidViewSet)
+router.register(r'bids', BidViewSet, base_name="bid")
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

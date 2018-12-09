@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from 'src/entity';
+import { User, UserResponse } from 'src/entity';
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires="+ d.toUTCString();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires=" + d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
@@ -13,7 +13,7 @@ function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
   var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
+  for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
     while (c.charAt(0) == ' ') {
       c = c.substring(1);
@@ -40,23 +40,22 @@ export class LoginService {
     setCookie("token", value, 1);
   }
 
-  public auth(username: String, password:String) : Promise<String> {
-    if(!this.isAuthenticated) {
+  public auth(username: String, password: String): Promise<String> {
+    if (!this.isAuthenticated) {
       return new Promise((resolve, reject) => {
         this.http.post("/backend/api-token-auth/?format=json", {
           username,
           password
         }).subscribe(
-          (data: {token: string}) => {
+          (data: { token: string }) => {
             this.token = data.token
             resolve(this.token);
           },
           error => reject(error)
-        );      
+        );
       })
     }
     else {
-
       return Promise.resolve(this.token);
     }
   }
@@ -65,8 +64,23 @@ export class LoginService {
     this.token = "";
   }
 
-  public get isAuthenticated() : boolean {
+  public get isAuthenticated(): boolean {
     return this.token != "";
+  }
+
+  public getUser(): Promise<UserResponse> {
+    return new Promise<UserResponse>((resolve, reject) => {
+      if (this.isAuthenticated) {
+        this.http.get<UserResponse[]>("/backend/api/users/", {
+          headers: {
+            'Authorization': `Token ${this.token}`
+          }
+        }).subscribe((data) => resolve(data[0]), (error) => reject(error));
+      }
+      else {
+        reject(new Error("Not authenticated"));
+      }
+    });
   }
 
   public register(user: User): Promise<boolean> {

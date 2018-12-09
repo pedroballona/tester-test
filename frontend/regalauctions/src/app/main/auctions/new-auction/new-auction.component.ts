@@ -21,6 +21,11 @@ export class NewAuctionComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, private loginService: LoginService, private auctionService: AuctionService) { }
 
   ngOnInit() {
+    this.loginService.getUser().then((user) => {
+      if(!user.is_admin) {
+        this.router.navigate(['main']);
+      }
+    })
   }
 
   async onSubmit() {

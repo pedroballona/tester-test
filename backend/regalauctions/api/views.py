@@ -11,9 +11,13 @@ class UserProfileViewSet(mixins.CreateModelMixin,
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = (OnlyPostToAnonymous,)
+
+    def get_queryset(self):
+        queryset = UserProfile.objects.all().filter(user_id=self.request.user.id)
+        return queryset
+
 
 class AuctionViewSet(viewsets.ModelViewSet):
     """
@@ -26,5 +30,11 @@ class BidViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Bid.objects.all()
     serializer_class = BidSerializer
+
+    def get_queryset(self):
+        queryset = Bid.objects.all()
+        auction = self.request.query_params.get('auction', None)
+        if auction is not None:
+            queryset = queryset.filter(auction_id=auction)
+        return queryset

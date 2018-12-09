@@ -37,6 +37,7 @@ export class SingUpComponent implements OnInit {
     if(this.regForm.valid) {
       let user: User = this.regForm.value;
       try {
+        this.loginService.clearToken();
         await this.loginService.register(user);
         await this.loginService.auth(user.username, user.password)
         this.router.navigate(['main']);

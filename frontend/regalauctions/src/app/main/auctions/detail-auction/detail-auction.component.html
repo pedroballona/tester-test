@@ -1,10 +1,64 @@
-<div><h3>{{auction.name}}</h3></div>
-
-<div><p><b>Name:</b> {{auction.name}}</p></div>
-<div><p><b>User:</b> {{auction.user}}</p></div>
-<div><p><b>Opening Date:</b> {{auction.opening_date}}</p></div>
-<div><p><b>Ending Date:</b> {{auction.ending_date}}</p></div>
-
-<div>
-  <button [disabled]="ended" class="btn btn-primary" (click)="end()">End Auction</button>
+<div class="card">
+  <div class="card-header">
+    <h3>{{auction.name}}</h3>
+  </div>
+  <div class="card-body">
+    <div>
+      <p><b>Name:</b> {{auction.name}}</p>
+    </div>
+    <div>
+      <p><b>User:</b> {{auction.user}}</p>
+    </div>
+    <div>
+      <p><b>Initial Value:</b> {{auction.initial_value}}</p>
+    </div>
+    <div>
+      <p><b>Opening Date:</b> {{auction.opening_date}}</p>
+    </div>
+    <div>
+      <p><b>Ending Date:</b> {{auction.ending_date}}</p>
+    </div>
+    <div>
+      <button [disabled]="ended" class="btn btn-primary" (click)="end()">End Auction</button>
+    </div>
+  </div>
 </div>
+<div *ngIf="!ended" class="card">
+  <div class="card-header">
+    <h3>Bid on Auction</h3>
+  </div>
+  <div class="card-body">
+    <div>
+      <div class="form-group">
+        <label for="value">Valor do Lance</label>
+        <input id="value" [formControl]="bidValue" type="number" class="form-control" placeholder="Enter Bid Value">
+      </div>
+      <div class="form-group">
+        <button [disabled]="!bidValue.valid" class="btn btn-primary" (click)="bid()">Bid</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3>Bids</h3>
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">User</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="clickable-row" *ngFor="let bid of bids">
+          <td>{{bid.user}}</td>
+          <td>{{bid.value}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
