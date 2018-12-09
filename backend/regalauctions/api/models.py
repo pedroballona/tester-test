@@ -9,6 +9,9 @@ class UserProfile(models.Model):
     active = models.BooleanField()
     is_admin = models.BooleanField()
 
+    def __str__(self):
+        return self.user.username
+
 class Auction(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -16,6 +19,9 @@ class Auction(models.Model):
     is_used = models.BooleanField()
     opening_date = models.DateField()
     ending_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 class Bid(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
@@ -30,3 +36,6 @@ class Bid(models.Model):
 
     class Meta:
         unique_together = ('user', 'value', 'auction')
+
+    def __str__(self):
+        return self.value

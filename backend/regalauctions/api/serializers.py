@@ -23,12 +23,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         profile = UserProfile.objects.create(user=user, **validated_data)
         return profile
 
-class AuctionSerializer(serializers.HyperlinkedModelSerializer):
+class AuctionSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(slug_field="name", read_only=True)
     class Meta:
         model = Auction
         fields = '__all__'
 
-class BidSerializer(serializers.HyperlinkedModelSerializer):
+class BidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bid
         fields = '__all__'

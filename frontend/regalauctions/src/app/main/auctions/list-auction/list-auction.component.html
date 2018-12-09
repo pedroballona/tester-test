@@ -1,3 +1,19 @@
-<p>
-  list-auction works!
-</p>
+<h3>Auctions</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Initial Value</th>
+      <th scope="col">Used Item</th>
+      <th scope="col">Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let auction of auctions">
+      <td>{{auction.name}}</td>
+      <td>{{auction.initial_value}}</td>
+      <td>{{auction.is_used ? 'Yes' : 'No'}}</td>
+      <td>{{auction.user}}</td>
+    </tr>
+  </tbody>
+</table>

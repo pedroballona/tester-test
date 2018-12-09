@@ -56,16 +56,17 @@ export class LoginService {
       })
     }
     else {
+
       return Promise.resolve(this.token);
     }
   }
 
   public clearToken() {
-    this.token = null;
+    this.token = "";
   }
 
   public get isAuthenticated() : boolean {
-    return this.token != "null";
+    return this.token != "";
   }
 
   public register(user: User): Promise<boolean> {

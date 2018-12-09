@@ -27,6 +27,7 @@ const appRoutes: Routes = [
       { path: 'newauction', component: NewAuctionComponent },
       { path: 'auctions', component: ListAuctionComponent },
       { path: 'auction/:id', component: DetailAuctionComponent },
+      { path: '', redirectTo: '/main/auctions', pathMatch: 'full'}
     ]
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
