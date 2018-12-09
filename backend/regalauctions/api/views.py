@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from .models import UserProfile, Auction, Bid
 from rest_framework import viewsets, mixins
 from .serializers import UserProfileSerializer, AuctionSerializer, BidSerializer
-
+from .permissions import OnlyPostToAnonymous
 
 class UserProfileViewSet(mixins.CreateModelMixin,
                                 mixins.ListModelMixin,
@@ -13,6 +13,7 @@ class UserProfileViewSet(mixins.CreateModelMixin,
     """
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+    permission_classes = (OnlyPostToAnonymous,)
 
 class AuctionViewSet(viewsets.ModelViewSet):
     """
