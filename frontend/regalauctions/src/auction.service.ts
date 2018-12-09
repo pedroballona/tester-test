@@ -28,6 +28,42 @@ export class AuctionService {
     });
   }
 
+  public getRecord(id: number) : Promise<Auction> {
+    return new Promise<Auction>((resolve, reject) => {
+      if(this.loginService.isAuthenticated) {
+        this.http.get(`/backend/api/auctions/${id}/?format.json`, {
+          headers: {
+            'Authorization': `Token ${this.loginService.token}`
+          }
+        }).subscribe((data) => {
+          resolve(data as Auction);
+        }, (error) => reject(error));
+      }
+      else {
+        this.router.navigate(["login"]);
+      }
+    });
+  }
+
+  public endAuction(auction: Auction): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      if(this.loginService.isAuthenticated) {
+        const body = {...auction};
+        const now: Date = new Date();
+        body.ending_date = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+        this.http.put(`/backend/api/auctions/${auction.id}/?format=json`, body,
+        {
+          headers: {
+            'Authorization': `Token ${this.loginService.token}`
+          }
+        }).subscribe((_) => resolve(true), (_) => reject(false));
+      }
+      else {
+        this.router.navigate(["login"]);
+      }
+    });
+  }
+
   public createRecord(name: string, initialValue: number, isUsed: boolean) : Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       if(this.loginService.isAuthenticated) {

@@ -12,7 +12,7 @@ export interface Auction {
     name: String;
     initial_value: number;
     is_used: boolean;
-    opening_date: Date;
-    ending_date: Date;
+    opening_date: String;
+    ending_date: String;
     user: String;
 }

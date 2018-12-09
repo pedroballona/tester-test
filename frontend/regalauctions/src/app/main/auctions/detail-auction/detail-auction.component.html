@@ -1,3 +1,10 @@
-<p>
-  detail-auction works!
-</p>
+<div><h3>{{auction.name}}</h3></div>
+
+<div><p><b>Name:</b> {{auction.name}}</p></div>
+<div><p><b>User:</b> {{auction.user}}</p></div>
+<div><p><b>Opening Date:</b> {{auction.opening_date}}</p></div>
+<div><p><b>Ending Date:</b> {{auction.ending_date}}</p></div>
+
+<div>
+  <button [disabled]="ended" class="btn btn-primary" (click)="end()">End Auction</button>
+</div>

@@ -5,12 +5,13 @@
       <th scope="col">Name</th>
       <th scope="col">Initial Value</th>
       <th scope="col">Used Item</th>
-      <th scope="col">Owner</th>
+      <th scope="col">Owner
+      </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let auction of auctions">
-      <td>{{auction.name}}</td>
+    <tr class="clickable-row" *ngFor="let auction of auctions">
+      <td><a [routerLink]="[ '/main/auction', auction.id]">{{auction.name}}</a></td>
       <td>{{auction.initial_value}}</td>
       <td>{{auction.is_used ? 'Yes' : 'No'}}</td>
       <td>{{auction.user}}</td>
