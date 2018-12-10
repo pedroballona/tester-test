@@ -1,5 +1,10 @@
 # Regal Auctions
 
+## Tecnologias Utilizadas
+
+1. Django Rest Framework (Backend)
+1. Angular 6 (Frontend)
+
 ## Dependências
 
 1. [Python](https://www.python.org/downloads/) (Lembre-se de selecionar no instalador para adicionar ao PATH no windows)
