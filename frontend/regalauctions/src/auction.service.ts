@@ -14,16 +14,15 @@ export class AuctionService {
   public listRecords(): Promise<Auction[]> {
     return new Promise<Auction[]>((resolve, reject) => {
       if (this.loginService.isAuthenticated) {
-        this.http.get("/backend/api/auctions/?format=json", {
+        this.http.get('/api/auctions/?format=json', {
           headers: {
             'Authorization': `Token ${this.loginService.token}`
           }
         }).subscribe((data) => {
           resolve(data as Auction[]);
         }, (error) => reject(error));
-      }
-      else {
-        this.router.navigate(["login"]);
+      } else {
+        this.router.navigate(['login']);
         resolve(null);
       }
     });
@@ -32,16 +31,15 @@ export class AuctionService {
   public getRecord(id: number): Promise<Auction> {
     return new Promise<Auction>((resolve, reject) => {
       if (this.loginService.isAuthenticated) {
-        this.http.get(`/backend/api/auctions/${id}/?format.json`, {
+        this.http.get(`/api/auctions/${id}/?format.json`, {
           headers: {
             'Authorization': `Token ${this.loginService.token}`
           }
         }).subscribe((data) => {
           resolve(data as Auction);
         }, (error) => reject(error));
-      }
-      else {
-        this.router.navigate(["login"]);
+      } else {
+        this.router.navigate(['login']);
         resolve(null);
       }
     });
@@ -53,15 +51,14 @@ export class AuctionService {
         const body = { ...auction };
         const now: Date = new Date();
         body.ending_date = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-        this.http.put(`/backend/api/auctions/${auction.id}/?format=json`, body,
+        this.http.put(`/api/auctions/${auction.id}/?format=json`, body,
           {
             headers: {
               'Authorization': `Token ${this.loginService.token}`
             }
           }).subscribe((_) => resolve(true), (error) => reject(error));
-      }
-      else {
-        this.router.navigate(["login"]);
+      } else {
+        this.router.navigate(['login']);
         resolve(false);
       }
     });
@@ -70,16 +67,15 @@ export class AuctionService {
   public getBids(auctionId: number): Promise<Bid[]> {
     return new Promise<Bid[]>((resolve, reject) => {
       if (this.loginService.isAuthenticated) {
-        this.http.get(`/backend/api/bids/?format=json&auction=${auctionId}`,
+        this.http.get(`/api/bids/?format=json&auction=${auctionId}`,
           {
             headers: {
               'Authorization': `Token ${this.loginService.token}`
             }
           }).subscribe((data) => resolve(data as Bid[]), (error) => reject(error));
-      }
-      else {
+      } else {
         resolve(null);
-        this.router.navigate(["login"]);
+        this.router.navigate(['login']);
       }
     });
   }
@@ -87,7 +83,7 @@ export class AuctionService {
   public createBid(auctionId: number, value: number) {
     return new Promise<boolean>((resolve, reject) => {
       if (this.loginService.isAuthenticated) {
-        this.http.post("/backend/api/bids/?format=json", {
+        this.http.post('/api/bids/?format=json', {
           auction: auctionId,
           value: value
         },
@@ -96,10 +92,9 @@ export class AuctionService {
               'Authorization': `Token ${this.loginService.token}`
             }
           }).subscribe((_) => resolve(true), (_) => reject(false));
-      }
-      else {
+      } else {
         resolve(false);
-        this.router.navigate(["login"]);
+        this.router.navigate(['login']);
       }
     });
   }
@@ -107,7 +102,7 @@ export class AuctionService {
   public createRecord(name: string, initialValue: number, isUsed: boolean): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       if (this.loginService.isAuthenticated) {
-        this.http.post("/backend/api/auctions/?format=json", {
+        this.http.post('/api/auctions/?format=json', {
           name: name,
           initial_value: initialValue,
           is_used: isUsed
@@ -117,10 +112,9 @@ export class AuctionService {
               'Authorization': `Token ${this.loginService.token}`
             }
           }).subscribe((_) => resolve(true), (_) => reject(false));
-      }
-      else {
+      } else {
         resolve(false);
-        this.router.navigate(["login"]);
+        this.router.navigate(['login']);
       }
     });
   }

@@ -43,7 +43,7 @@ export class LoginService {
   public auth(username: String, password: String): Promise<String> {
     if (!this.isAuthenticated) {
       return new Promise((resolve, reject) => {
-        this.http.post("/backend/api-token-auth/?format=json", {
+        this.http.post("/api-token-auth/?format=json", {
           username,
           password
         }).subscribe(
@@ -71,7 +71,7 @@ export class LoginService {
   public getUser(): Promise<UserResponse> {
     return new Promise<UserResponse>((resolve, reject) => {
       if (this.isAuthenticated) {
-        this.http.get<UserResponse[]>("/backend/api/users/", {
+        this.http.get<UserResponse[]>("/api/users/", {
           headers: {
             'Authorization': `Token ${this.token}`
           }
@@ -96,7 +96,7 @@ export class LoginService {
         is_admin: user.isAdmin,
         cpf: user.cpf,
       };
-      this.http.post("/backend/api/users/", body).subscribe(() => resolve(true), (error) => reject(error));
+      this.http.post("/api/users/", body).subscribe(() => resolve(true), (error) => reject(error));
     });
   }
 }
