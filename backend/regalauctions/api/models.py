@@ -28,12 +28,6 @@ class Bid(models.Model):
     value = models.FloatField()
     auction = models.ForeignKey(Auction, on_delete=models.CASCADE)
 
-    def clean(self):
-        result = Bid.objects.all().aggregate(models.Min('value'))
-        min_value = result['value__min']
-        if(min_value is not None and self.value < min_value):
-            raise ValidationError(f"Não é possível criar um lance menor que o menor lance de R${min_value:.2f}")
-
     class Meta:
         unique_together = ('user', 'value', 'auction')
 

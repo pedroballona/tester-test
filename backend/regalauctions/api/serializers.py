@@ -65,7 +65,7 @@ class BidSerializer(serializers.ModelSerializer):
         bid = Bid(
             user = profile,
             auction = auction,
-            value = validated_data['value']
+            value = validated_data['value'] + 1
         )
         bid.save()
         return bid
