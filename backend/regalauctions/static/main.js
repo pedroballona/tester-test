@@ -1153,22 +1153,23 @@ var SingUpComponent = /** @class */ (function () {
         this.router = router;
         this.loginService = loginService;
         this.regForm = this.fb.group({
-            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            username: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            password: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             isAdmin: [false, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            cpf: ['', [
+            cpf: [
+                "",
+                [
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(11),
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(11),
                     _cpf_cnpj_validator__WEBPACK_IMPORTED_MODULE_4__["CpfCnpjValidator"].validate
                 ]
             ],
-            email: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]]
+            email: ["", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]]
         });
     }
-    SingUpComponent.prototype.ngOnInit = function () {
-    };
+    SingUpComponent.prototype.ngOnInit = function () { };
     SingUpComponent.prototype.onSubmit = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var user, error_1;
@@ -1187,7 +1188,7 @@ var SingUpComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.loginService.auth(user.username, user.password)];
                     case 3:
                         _a.sent();
-                        this.router.navigate(['main']);
+                        this.router.navigate(["main"]);
                         return [3 /*break*/, 5];
                     case 4:
                         error_1 = _a.sent();
@@ -1200,11 +1201,13 @@ var SingUpComponent = /** @class */ (function () {
     };
     SingUpComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-sing-up',
+            selector: "app-sing-up",
             template: __webpack_require__(/*! ./sing-up.component.html */ "./src/app/sing-up/sing-up.component.html"),
             styles: [__webpack_require__(/*! ./sing-up.component.css */ "./src/app/sing-up/sing-up.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _login_service__WEBPACK_IMPORTED_MODULE_5__["LoginService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _login_service__WEBPACK_IMPORTED_MODULE_5__["LoginService"]])
     ], SingUpComponent);
     return SingUpComponent;
 }());

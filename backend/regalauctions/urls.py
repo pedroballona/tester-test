@@ -36,4 +36,5 @@ urlpatterns = [
     url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^(?P<path>.*)/$', TemplateView.as_view(template_name='index.html')),
+    path(r'', TemplateView.as_view(template_name='index.html'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

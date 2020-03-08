@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "8d6427eb-4319-4eb7-a833-fab77f8ca84c",
+		"name": "RegalAuctions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": {\n        \"username\": \"test\",\n        \"password\": \"test\",\n        \"email\": \"test@totvs.com.br\"\n    },\n    \"name\": \"test\",\n    \"active\": true,\n    \"is_admin\": true,\n    \"cpf\": \"11835464670\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/users/",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6673122-1853-46ab-8a60-36128b815cb0",
+						"exec": [
+							"var response = pm.response.json();",
+							"pm.collectionVariables.set(\"token\", response.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"test\",\n  \"password\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api-token-auth/",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api-token-auth",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Auctions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{server}}/api/auctions/?format=json",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"auctions",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Auction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Auction\",\n    \"initial_value\": 1,\n    \"is_used\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/auctions/?format=json",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"auctions",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Auction (Finalize Auction)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Token {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"user\": \"test\",\n    \"name\": \"Auction\",\n    \"initial_value\": 1,\n    \"is_used\": true,\n    \"opening_date\": \"2020-03-08\",\n    \"ending_date\": \"2020-03-08\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/auctions/1/?format=json",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"auctions",
+						"1",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Bid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Token {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 44,\n    \"auction\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/bids/?format=json",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"bids",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ed5e43f4-267b-4cec-ab32-f7aa2fcf29ab",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "731427e8-ecb6-4bcd-bc44-7e08d9e98598",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e08354de-5db8-4561-a3f7-34a4580929a4",
+			"key": "server",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"id": "bb2f0396-4efe-4b98-abc2-438ef1a3f913",
+			"key": "token",
+			"value": "f80cd9f3b9941e670f85e28e77d04f95a2ff29cb",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
